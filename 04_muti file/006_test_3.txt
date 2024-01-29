@@ -1,0 +1,2 @@
+id|name|Department|salary|awards|assets
+12|kumar|IT|5009|1|4
