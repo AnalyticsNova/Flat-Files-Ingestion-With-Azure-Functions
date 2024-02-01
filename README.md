@@ -24,10 +24,11 @@ The following resources needs to be installed and Prerequisites settings.
 10. Turn on MSI for azure functions and allow bloab data contributor role.
 11. Configure MSI for azure functions on keyvault.
 12. Open the excel and add the headers of required csv file in designated area , Once headers transformed into rows.
-13. Move to first tab in the second cell ammended the table name with filename no digits or special characters allowed , provide the business key column details to generate the sql script.
-14. Execute the script on database to provide meta data information about file.
-15. Upload the file that contain the same table name provided in step 8.
-16. A table will be populated with file content , you can change the file content to test SCD 2 scenarios.
+13. Move to first tab in the second cell ammended the table name with filename no digits or special characters allowed.
+14. provide the business key column details to generate the sql script.
+15. Execute the script on database to provide meta data information about file.
+16. Upload the file that contain the same table name provided in step 8.
+17. A table will be populated with file content , you can change the file content to test SCD 2 scenarios.
 
 # Contents
 The directory contain SQL server scripts, application project files and there are sample CSV files can be used for testing.
