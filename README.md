@@ -12,7 +12,7 @@ This solution will copy known flat files format files into azure sql database. T
 # Get started
 The following resources needs to be installed and Prerequisites settings.
 
-# Flat File Format
+## Flat File Format
 1.  please make sure flat file contain only above delimiters and it should be of correct format. Avoid using SQL keywords as column name.
 2.  You can use notepad++ to check the file content.
 
