@@ -32,3 +32,10 @@ The directory contain SQL server scripts and application project files:
 2. Navigate to the directory and click on solution file.
 3. File will open in visual studio 2022.
 
+#  Useful Links 
+ Azure Functions Getting Started: https://docs.microsoft.com/en-us/azure/azure-functions/functions-create-first-azure-function
+ Azure Functions storage binging: https//docs.microsoft.com/en-us/azure/azure-functions/functions-bindings-storage-blob
+ host. json metadata file: https://docs.microsoft.com/en-us/azure/azure-functions/functions-host-json#functiontimeout
+ Azure Functions scale and hosting: https://docs.microsoft.com/en-us/azure/azure-functions/functions-scale
+ 
+
