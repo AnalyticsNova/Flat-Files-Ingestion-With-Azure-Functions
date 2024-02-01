@@ -34,8 +34,7 @@ The directory contain SQL server scripts, application project files and there ar
 
 #  Useful Links 
  1. Azure Functions Getting Started: https://docs.microsoft.com/en-us/azure/azure-functions/functions-create-first-azure-function
- 2. Azure Functions storage binging: https//docs.microsoft.com/en-us/azure/azure-functions/functions-bindings-storage-blob
- 3. 
+ 2. Azure Functions storage binging: https//docs.microsoft.com/en-us/azure/azure-functions/functions-bindings-storage-blob 
  4. host.json metadata file: https://docs.microsoft.com/en-us/azure/azure-functions/functions-host-json#functiontimeout
  5. Azure Functions scale and hosting: https://docs.microsoft.com/en-us/azure/azure-functions/functions-scale
  
