@@ -1,5 +1,7 @@
 # Flat-Files-Ingestion-With-Azure-Functions
 
+![alt text](https://github.com/datalonewarrior/Flat-Files-Ingestion-With-Azure-Functions/blob/master/Az_Function_Event_Driven.png?raw=true)
+
 # Introduction
 This repository contains SQL objects and related visual studio database project resources.
 Azure Functions is an event driven, compute-on-demand experience that extends the existing Azure application platform with capabilities to implement code triggered by events occurring in virtually any Azure or 3rd party service as well as on-premises systems. 
