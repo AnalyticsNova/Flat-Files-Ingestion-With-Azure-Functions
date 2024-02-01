@@ -1,6 +1,6 @@
 # Flat-Files-Ingestion-With-Azure-Functions
 
-![alt text](https://github.com/datalonewarrior/Flat-Files-Ingestion-With-Azure-Functions/blob/master/Az_Function_Event_Driven.png?raw=true)
+![alt text](https://github.com/datalonewarrior/Flat-Files-Ingestion-With-Azure-Functions/blob/master/Az_Function_Event_Driven_V1.png?raw=true)
 
 # Introduction
 This repository contains SQL objects and related visual studio database project resources.
