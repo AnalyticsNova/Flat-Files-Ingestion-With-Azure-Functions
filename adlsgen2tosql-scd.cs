@@ -126,10 +126,11 @@ namespace adlsgen2tosql
                 //--generate file headers
                 file_header = "" ;
                 var filehead = getfileheaderinfo(dt1,filedel);
-
+                //var filehead_info = "[" + filehead.Replace(filedel, "],[") + "]";
+                Console.WriteLine($"This is file header from file generated:{filehead}");
 
                 //--insert file audit info into sql
-                insertfileauditinfo(filename, tablename, filenamenoextension, filehead , filefullpath, 0, Prod_Schema, datetime, fileid, filedel);
+                insertfileauditinfo(filename, tablename, filenamenoextension, filehead, filefullpath, 0, Prod_Schema, datetime, fileid, filedel);
 
 
                 DataTableCollection collection = ds.Tables;
@@ -671,6 +672,7 @@ namespace adlsgen2tosql
             }
 
             fileheader = fileheader.Substring(0, fileheader.Length - 1);
+            //fileheader = "[" + fileheader.Replace(fileheader, "],[") + "]";
             //Console.WriteLine($"file_header:{file_header}");
             Console.WriteLine($"5-getfileheaderinfo finished at :{DateTime.Now.ToString("yyyyMMddHHmmss")}");
             return fileheader;
