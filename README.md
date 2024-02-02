@@ -14,9 +14,10 @@ The following resources needs to be installed and Prerequisites settings.
 
 ## Flat File Format
 1.  please make sure flat file contain only above delimiters and it should be of correct format. Avoid using SQL keywords as column name.
-2.  You can use notepad++ to check the file content.
-3.  A file with similar name can only be processed once , add unique identifier to every file upload i:e datetime.
-4.  File name should contain unique identifiers for every upload , duplicates file names will be excluded from processing.
+2.  No spaces between the column names.
+3.  You can use notepad++ to check the file content.
+4.  A file with similar name can only be processed once , add unique identifier to every file upload i:e datetime.
+5.  File name should contain unique identifiers for every upload , duplicates file names will be excluded from processing.
 
 ## Resources
 
