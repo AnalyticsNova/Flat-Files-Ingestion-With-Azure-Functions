@@ -11,6 +11,9 @@ using Azure.Storage.Files.DataLake;
 using Azure.Storage;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using System.IO.Enumeration;
+using Microsoft.Azure.Storage.Blob;
+using Azure.Storage.Blobs.Specialized;
 
 namespace adlsgen2tosql
 {
@@ -68,7 +71,8 @@ namespace adlsgen2tosql
     [Singleton(Mode =SingletonMode.Function)]
     [Singleton(Mode = SingletonMode.Listener)]
     [FunctionName("adlsgen2tosql")]
-        public static async Task RunAsync([BlobTrigger(blobPath:"scd/{name}",Connection = "AzureWebJobsStorage")] Stream data, string name, string blobTrigger, Uri Uri, IDictionary<string, string> Metadata, ILogger log,
+        //public static async Task RunAsync([BlobTrigger(blobPath:"scd/{name}",Connection = "AzureWebJobsStorage")] Stream data, string name, string blobTrigger, Uri Uri, IDictionary<string, string> Metadata, ILogger log,
+        public static async Task RunAsync([BlobTrigger(blobPath: "scd/{name}", Connection = "AzureWebJobsStorage")] BlockBlobClient blob,string name, string blobTrigger, Uri Uri, IDictionary<string, string> Metadata, ILogger log,
                                           [Queue(queueName:"deadletterqueue",Connection = "AzureWebJobsStorage")] IAsyncCollector<DeadLetterMessage> deadLetterMessages
                                  )
         {
@@ -78,21 +82,35 @@ namespace adlsgen2tosql
                  .AddEnvironmentVariables()
                  .Build();
 
-            // connect to adls gen2 for file operation
-            // connect to adls file system using account key
-            string dfsUri = "https://" + storageAccountName + ".dfs.core.windows.net";
-            StorageSharedKeyCredential sharedKeyCredential = new StorageSharedKeyCredential(storageAccountName, storageAccountKey);
-            // Create DataLakeServiceClient using StorageSharedKeyCredentials
-            DataLakeServiceClient serviceClient = new DataLakeServiceClient(new Uri(dfsUri), sharedKeyCredential);
-            //Console.WriteLine($"adlsname:{storageAccountName} \n adlasaccountkey:{storageAccountKey}");
+
+            // Construct the connection string
+            string connectionString = $"DefaultEndpointsProtocol=https;AccountName={storageAccountName};AccountKey={storageAccountKey};FileEndpoint=https://{storageAccountName}.dfs.core.windows.net";
+
+            // Create a DataLakeServiceClient object using the connection string
+            DataLakeServiceClient serviceClient = new DataLakeServiceClient(connectionString);
+
+            // Get a reference to the file system
+            DataLakeFileSystemClient fileSystemClient = serviceClient.GetFileSystemClient(source_container);
+
+            // Get a reference to the file
+            DataLakeFileClient fileClient = fileSystemClient.GetFileClient(name);
+
+
+            Console.WriteLine($"This is filename:{name}");
+
+            ////////////////////
 
 
             try
             {
+                MemoryStream data = new MemoryStream();
+                ////////////////////
+                await fileClient.ReadToAsync(data);
+                data.Position = 0;
                 //StreamReader reader = new StreamReader(data);
                 //string filecontent = reader.ReadToEnd();
                 //log.LogInformation($"filecontent:{filecontent}");
-               
+
                 // variables created from blob input binding variables
                 filename = name;
                 filefullpath = blobTrigger;
@@ -113,6 +131,8 @@ namespace adlsgen2tosql
                 //data.Position = 0;
                 //var requestBody = new StreamReader(data);
                 var filedel = detectdelimiter(data,3, delimiter_char);
+
+
 
 
 
