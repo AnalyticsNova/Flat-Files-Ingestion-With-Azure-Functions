@@ -5,9 +5,6 @@
 		<UserSecretsId>5a3f1add-5717-437f-a27a-7ca371ed2b07</UserSecretsId>
 	</PropertyGroup>
 	<ItemGroup>
-	  <None Remove="local.settings.json" />
-	</ItemGroup>
-	<ItemGroup>
 		<PackageReference Include="Azure.Storage.Files.DataLake" Version="12.17.1" />
 		<PackageReference Include="Azure.Storage.Queues" Version="12.17.1" />
 		<PackageReference Include="Microsoft.ApplicationInsights.WorkerService" Version="2.22.0" />
@@ -30,6 +27,9 @@
 	</ItemGroup>
 	<ItemGroup>
 		<None Update="host.json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="local.settings.json">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
 	</ItemGroup>
