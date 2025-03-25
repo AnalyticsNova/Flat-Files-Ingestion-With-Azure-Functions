@@ -12,8 +12,9 @@ using Azure.Storage;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.IO.Enumeration;
-using Microsoft.Azure.Storage.Blob;
+//using Microsoft.Azure.Storage.Blob;
 using Azure.Storage.Blobs.Specialized;
+using Microsoft.Data.SqlClient; // Updated to use Microsoft.Data.SqlClient
 
 namespace adlsgen2tosql
 {
@@ -227,7 +228,8 @@ namespace adlsgen2tosql
                     createarchivedirectorycontainer(serviceClient);
 
                     //--Moving file to archive folder
-                    //archivefile(serviceClient, filename, source_container, archive_container, archive_directory);
+                    //await archivefile(serviceClient, filename, source_container,archive_container, archive_directory);
+                    await archivefile(serviceClient, filename, source_container, archive_container);
 
                     //--Create Prod View
                     createprodviews(Prod_Schema, tablename, filename, filefullpath);
@@ -336,22 +338,30 @@ namespace adlsgen2tosql
             Console.WriteLine($"14-createdirectory file finished at :{DateTime.Now.ToString("yyyyMMddHHmmss")}");
         }
 
+ 
 
-        //// archive files in ADLS
-        public static void archivefile(DataLakeServiceClient client, string filename, string source_container, string archive_container, string archive_directory)
+        public static async Task archivefile(DataLakeServiceClient client, string filename, string source_container, string archive_container)
         {
+            var fileSystemClientSource = client.GetFileSystemClient(source_container);
+            var fileClientSource = fileSystemClientSource.GetFileClient(filename);
+            var fileSystemClientArchive = client.GetFileSystemClient(archive_container);
+            var fileClientArchive = fileSystemClientArchive.GetFileClient(filename);
 
-            var SouceFileFullPath = filefullpath;
-            var DestFileFullPath = (archive_container + @"/" + archive_directory + @"/" + filename);
+            // Read the content from the source file
+            var downloadResponse = await fileClientSource.ReadAsync();
+            using (var stream = downloadResponse.Value.Content)
+            {
+                // Upload the content to the archive location
+                await fileClientArchive.UploadAsync(stream, overwrite: true);
+            }
 
-            var fileSystemClient_source = client.GetFileSystemClient(source_container);
-            var fileClient = fileSystemClient_source.GetFileClient(filename);
-            var fileSystemClient_archive = client.GetFileSystemClient(archive_container);
-            var directoryClient_archive = fileSystemClient_archive.GetDirectoryClient(archive_directory);
-           // fileClient.RenameAsync(directoryClient_archive.ToString());
+            // Delete the original file
+            await fileClientSource.DeleteIfExistsAsync();
 
             Console.WriteLine($"14-archiving file finished at :{DateTime.Now.ToString("yyyyMMddHHmmss")}");
         }
+
+
 
 
 
@@ -698,7 +708,7 @@ namespace adlsgen2tosql
             return fileheader;
         }
 
-        private static void printdtvalues(DataTable table)
+        public static void printdtvalues(DataTable table)
         {
             foreach (DataRow row in table.Rows)
             {
