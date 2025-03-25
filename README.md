@@ -23,7 +23,7 @@ The following resources needs to be installed and Prerequisites settings.
 
 1.	Visual Studio 2022.
 2.	SQL Server Management Studio or Data Studio.
-3.	Azure Storage Gen2 Hirerichal Namespace Enabled with a container name "scd".
+3.	Azure Storage Gen2 Hirerichal Namespace Enabled with a container names "scd" and "archive".
 4. Azure SQL database.
 5. Azure Function App , Any tier can be used for prod workloads App service plan is recommended.
 6. MS Excel with Macro Enabled.
